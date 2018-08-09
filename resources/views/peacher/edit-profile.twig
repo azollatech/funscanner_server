@@ -1,0 +1,43 @@
+{% set pageName = "Edit Profile" %}
+{% extends "base.twig" %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'peacher-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+					{# testing #}
+						<div class="card">
+							<form action="{{URL}}peacher/editProfile/post" method="post" enctype="multipart/form-data">
+							    Change Profile Picture:
+							    <input type="file" name="fileToUpload" id="fileToUpload">							    							
+							<div class="input-group">
+								<label>Nickname: </label>
+								<div class="row">
+									<div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+										<input type="text" name="new_Nickname"/>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+									<button class="default" type="submit" name="submit"
+										style="width: 100%; margin: 4px 0 0;">Submit</button>
+								</div>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

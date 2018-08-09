@@ -1,0 +1,105 @@
+{% set pageName = "Withdrawal" %}
+{% extends "base.twig" %}
+
+{% block js %}
+
+	<script type="text/javascript">
+        $(document).ready(function(){
+            $('#dataTable').DataTable({
+		        "ordering": false,
+		        "info": false,
+		        "searching": false,
+		        "lengthChange": false,
+		        "autoWidth": false,
+		        "language": {
+			      "emptyTable": "No existing withdrawal request"
+			    }
+            });
+           
+            
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'admin-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+							<form action="{{URL}}peacher/set-price/post" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<div class="row">
+									<div class="col-lg-6 col-md-6">
+										<div class="margin-bottom-8">
+											<h3>Withdrawal</h3>
+										</div>
+									</div>
+								</div>
+								<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+									<thead>
+										<tr>
+											<th>User ID</th>
+											<th>User Name</th>
+											<th>Balance</th>
+											<th>Withdraw</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										{% set count1 = 0 %}
+										{% for current_balance in all_current_balance %}
+											
+											<tr>
+												<td>{{current_balance['peacher_id']}}</td>
+												<td>{{current_balance['username']}}
+												<td>${{current_balance['current_balance']| number_format(0, '.', ',')}}</td>
+												{# <td>
+													{% if current_balance.status == "pending" %}
+														<a href="{{URL}}admin/approve-withdrawal/freeze/{{current_balance['withdrawal_id']}}">Freeze</a>
+													{% else %}
+														<span style="color:#ccc">Freeze</span>
+													{% endif %}
+												</td> #}
+												<td>
+													{% if current_balance.current_balance != 0 %}
+														<a href="{{URL}}admin/withdrawal/withdraw/{{current_balance['peacher_id']}}/{{current_balance['current_balance']}}">Withdraw</a>
+													{% else %}
+														<span style="color:#ccc">Withdraw</span>
+													{% endif %}
+												</td>
+											</tr>
+											{% set count1 = count1 + 1 %}
+										{% endfor %}
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

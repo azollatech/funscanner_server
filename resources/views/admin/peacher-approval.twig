@@ -1,0 +1,107 @@
+{% set pageName = "Peacher Approval" %}
+{% extends "base.twig" %}
+
+{% block js %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+            $('#dataTable').DataTable({
+		        "ordering": true,
+		        "order": [[ 0, "desc" ]],
+		        "aoColumns": [
+		        	{"bSortable": true},
+		        	{"bSortable": false},
+		        	{"bSortable": false},
+		        	{"bSortable": false},
+		        	{"bSortable": false},
+		        	{"bSortable": false}
+		        ],
+		        "info": false,
+		        "searching": false,
+		        "lengthChange": false,
+		        "autoWidth": false,
+		        "language": {
+			      "emptyTable": "No existing peacher request."
+			    }
+            });
+           
+            
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'admin-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+							<form action="{{URL}}admin/approve-peacher/post" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<div class="row">
+									<div class="col-lg-6 col-md-6">
+										<div class="margin-bottom-8">
+											<h3>Peacher Approval</h3>
+										</div>
+									</div>
+								</div>
+								<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+									<thead>
+										<tr>
+											<th>Requested At</th>
+											<th>Updated At</th>
+											<th>User ID</th>
+											<th>Full Name</th>
+											<th>Status</th>
+											<th>Approve</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for peacher in all_peachers %}
+											<tr>
+												<td>{{peacher['created_at']}}</td>
+												<td>{{peacher['updated_at']}}</td>
+												<td>{{peacher['user_id']}}</td>
+												<td>{{peacher['fullname']}}</td>
+												<td>{{peacher['status'] | capitalize}}</td>
+												<td>
+													{% if peacher.status == "pending" %}
+														<a href="{{URL}}admin/peacher-approval/post/{{peacher['user_id']}}/{{peacher['id']}}">Approve</a>
+													{% else %}
+														<span style="color:#ccc">Approve</span>
+													{% endif %}
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

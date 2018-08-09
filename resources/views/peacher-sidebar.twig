@@ -1,0 +1,27 @@
+<div id="sidebar">
+	<nav class="student">
+		<ul>
+			<li>
+				<a href="{{URL}}peacher/set-schedule" 
+					class="{% if pageName == "Set Schedule" %}current{% endif %}">Set Schedule</a>
+			</li>
+			{# <li>
+				<a href="{{URL}}peacher/edit-profile" 
+					class="{% if pageName == "Edit Profile" %}current{% endif %}">Edit Profile</a>
+			</li>	 #}			
+			<li>
+				<a href="{{URL}}peacher/set-price" 
+					class="{% if pageName == "Set Price" %}current{% endif %}">Set Price</a>
+			</li>				
+			
+			<li>
+				<a href="{{URL}}peacher/activity-records" 
+					class="{% if pageName == "Activity Records" %}current{% endif %}">Activity Records</a>
+			</li>
+
+			<li>
+				<a href="{{URL}}logout">Logout</a>
+			</li>
+		</ul>
+	</nav>
+</div>

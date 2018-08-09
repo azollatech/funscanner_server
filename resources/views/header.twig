@@ -1,0 +1,14 @@
+{% spaceless %}
+<div id="header">
+	<div class="container">
+		<h1 id="logo">
+			<a href="{{URL}}" style="display:inline-block;">
+				<img src="{{URL}}img/header_logo.png" alt="peachy" height="40"/>
+			</a>
+		</h1>
+		{% if username %}
+			<span class="welcome-message">Welcome, {{username}}!</span>
+		{% endif %}
+	</div>
+</div>
+{% endspaceless %}

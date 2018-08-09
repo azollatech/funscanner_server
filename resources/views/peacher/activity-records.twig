@@ -1,0 +1,251 @@
+{% set pageName = "Activity Records" %}
+{% extends "base.twig" %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{URL}}css/jquery-ui.min.css">
+{% endblock %}
+
+{% block js %}
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="{{URL}}js/jquery-ui.min.js"></script>
+	<script>
+	  	$( function() {
+	    	$( "#tabs" ).tabs();
+	  	} );
+	  	$( document ).ready(function() {
+		    $("#add-bank-account").hide();
+		    // var tbody = $("#bank-table tbody");
+			// if (tbody.children().length == 0) {
+			//     $("#add-bank-account").show();
+			// } else {
+			// 	$("#add-bank-account").hide();
+			// }
+			// $("#bank-table").dataTable( {
+			//     "language": {
+			//       "emptyTable": "No data available in table"
+			//     }
+			// } );
+			$( "#show-add-bank-account" ).click(function() {
+				$("#add-bank-account").show();
+			});
+		});
+	  	
+  </script>
+{% endblock %}	
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'peacher-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+					{# testing #}
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+							<div id="tabs">
+							  	<ul>
+							    	<li><a href="#tabs-1">Overview</a></li>
+							    	<li><a href="#tabs-2">Past Activities</a></li>
+							    	<li><a href="#tabs-3">Upcoming Activities</a></li>
+							    	<li><a href="#tabs-4">Withdrawals</a></li>
+							  	</ul>
+							  	<div id="tabs-1">
+						  			<span style="line-height: 30px;"><b>Income: </b></span><span>${{total_earning | number_format(0, '.', ',')}}</span><br>
+							  		{# <span style="line-height: 30px;"><b>Pending Withdrawals: </b></span><span>{{total_pending_withdrawals_amount[0]['total'] | number_format(0, '.', ',')}}</span><br> #}
+							    	<span style="line-height: 30px;"><b>Withdrawal: </b></span><span>${{(total_confirmed_withdrawals_amount[0]['total']==NULL)? 0 :total_confirmed_withdrawals_amount[0]['total'] | number_format(0, '.', ',')}}</span><br>
+							    	<span style="line-height: 30px;"><b>Balance: </b></span><span>${{(total_earning-total_confirmed_withdrawals_amount[0]['total']) | number_format(0, '.', ',')}}</span><br>
+							    	<span style="line-height: 30px;"><b>(Upcoming Income: </b></span><span>${{upcoming_earning | number_format(0, '.', ',')}}</span><span><b>)</b></span>
+							    	{# <form action="{{URL}}peacher/activity-records/withdraw/{{total_earning}}" method="post" enctype="multipart/form-data">
+							    		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								    	<div class="row">
+											<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+												<button class="default" type="submit" name="submit"
+													style="width: 100%; margin: 4px 0 0;">Withdraw</button>
+											</div>
+										</div>
+									</form> #}
+							  	</div>
+							  	<div id="tabs-2">
+							    	<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+										<thead>
+											<tr>
+												<th>User</th>
+												<th>Activity</th>
+												<th>Start Time</th>
+												<th>End Time</th>
+												<th>Venue</th>
+												<th>Price</th>
+												<th>Amount</th>
+											</tr>
+										</thead>
+										{% for activitity in past_activities %}
+											<tbody>
+												<td>{{activitity['nickname']}}</td>
+												<td>{{activitity['activity']}}</td>
+												<td>{{activitity['start_datetime']}}</td>
+												<td>{{activitity['end_datetime']}}</td>
+												<td>{{activitity['place']}}</td>
+												<td>${{activitity['price'] | number_format(0, '.', ',')}}</td>
+												<td>${{activitity['amount'] | number_format(0, '.', ',')}}</td>
+											</tbody>
+										{% endfor %}
+										{# <tbody>
+											<td colspan="6" style="text-align:right">Total:</td>
+											<td>{{total_earning}}</td>
+										</tbody> #}
+									</table>
+									<div style="text-align:right">
+										<label>Total: ${{total_earning | number_format(0, '.', ',')}}</label>
+									</div>
+							  	</div>
+							  	<div id="tabs-3">
+							    	<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+										<thead>
+											<tr>
+												<th>User</th>
+												<th>Activity</th>
+												<th>Start Time</th>
+												<th>End Time</th>
+												<th>Venue</th>
+												<th>Price</th>
+												<th>Amount</th>
+											</tr>
+										</thead>
+										{% for activitity in upcoming_activities %}
+											<tbody>
+												<td>{{activitity['nickname']}}</td>
+												<td>{{activitity['activity']}}</td>
+												<td>{{activitity['start_datetime']}}</td>
+												<td>{{activitity['end_datetime']}}</td>
+												<td>{{activitity['place']}}</td>
+												<td>${{activitity['price'] | number_format(0, '.', ',')}}</td>
+												<td>${{activitity['amount'] | number_format(0, '.', ',')}}</td>
+											</tbody>
+										{% endfor %}
+									</table>
+									<div style="text-align:right">
+										<label>Total: ${{upcoming_earning | number_format(0, '.', ',')}}</label>
+									</div>
+							  	</div>
+							  	<div id="tabs-4">
+							    	<table id="dataTable" class="display" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>Withdrawn At</th>
+												<th>Amount</th>
+												{# <th>Status</th> #}
+											</tr>
+										</thead>
+										{% for withdrawal in withdrawals %}
+											<tbody>
+												<td>{{withdrawal['created_at']}}</td>
+												<td>${{withdrawal['amount'] | number_format(0, '.', ',')}}</td>
+												{# <td>{{withdrawal['status']}}</td> #}
+											</tbody>
+										{% endfor %}
+									</table>
+							  	</div>
+							</div>
+						</div>
+					</div>
+					<div class="card" id="add-bank-account">
+							<div class="margin-bottom-24">
+								<h3>Add Bank Account</h3>
+							</div>
+							<form action="{{URL}}peacher/add-bank-account" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+								<div class="input-group">
+									<label>Bank Name: </label>
+									<select name="bank_name">
+										<option selected disabled>-- please select a bank --</option>
+										<option value="012">012 - Bank of China (Hong Kong)</option>
+										<option value="027">027 - Bank of Communications</option>
+										<option value="015">015 - Bank of East Asia</option>
+										<option value="018">018 - China CITIC Bank International</option>
+										<option value="009">009 - China Construction Bank (Asia)</option>
+										<option value="039">039 - Chiyu Banking Corporation</option>
+										<option value="041">041 - Chong Hing Bank</option>
+										<option value="250">250 - Citibank (Hong Kong)</option>
+										<option value="040">040 - Dah Sing Bank</option>
+										<option value="016">016 - DBS Bank (Hong Kong)</option>
+										<option value="128">128 - Fubon Bank (Hong Kong)</option>
+										<option value="024">024 - Hang Seng Bank</option>
+										<option value="004">004 - Hongkong and Shanghai Banking Corporation</option>
+										<option value="072">072 - Industrial and Commercial Bank of China (Asia)</option>
+										<option value="043">043 - Nanyang Commercial Bank</option>
+										<option value="022">022 - OCBC Wing Hang Bank</option>
+										<option value="028">028 - Public Bank (Hong Kong)</option>
+										<option value="025">025 - Shanghai Commercial Bank</option>
+										<option value="003">003 - Standard Chartered Bank (Hong Kong)</option>
+										<option value="061">061 - Tai Sang Bank</option>
+										<option value="038">038 - Tai Yau Bank</option>
+										<option value="020">020 - Wing Lung Bank</option>
+									</select>
+								</div>
+								<div class="input-group">
+									<label>Bank Account Number: </label>
+									<input type="text" name="bank_account_num"/>
+								</div>
+								<div class="input-group">
+									<label>Bank Account Holder Name: </label>
+									<input type="text" name="bank_account_holder_name"/>
+								</div>
+								<button class="default" type="submit" name="submit">Submit</button>
+							</form>
+					</div>
+					<div class="card">
+						<div class="margin-bottom-24">
+							<h3>Your Bank Account</h3>
+						</div>
+						{% if bank_info is empty %}
+							<div class="margin-bottom-24">
+								<p style="font-size: 14px;">No Bank Account. Please <a href="#" id="show-add-bank-account">add a bank account.</a></p>
+							</div>
+						{% else %}
+							<table id="bank-table" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Bank Name</th>
+									<th>Account Number</th>
+									<th>Holder Name</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							{% for each_bank_info in bank_info %}
+								<tbody>
+									<td>{{each_bank_info['account_name']}}</td>
+									<td>{{each_bank_info['account_num']}}</td>
+									<td>{{each_bank_info['account_holder_name']}}</td>
+									<td>
+										<a href="{{URL}}peacher/delete-bank"><img src="{{URL}}img/icn_delete.png"/></a>
+									</td>
+								</tbody>
+							{% endfor %}
+						</table>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

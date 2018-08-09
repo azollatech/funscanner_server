@@ -1,0 +1,193 @@
+{% set pageName = "Set Price" %}
+{% extends "base.twig" %}
+
+{% block js %}
+
+	<script type="text/javascript">
+
+		activities = {{activities_json|raw}};
+        function loadActivities(obj){
+	    	var value = obj.value;
+	    	// console.log(value);
+	    	var acts = "<option selected disabled>-- please select a activity --</option>";
+	    	for (category in activities) {
+	    		if (category.split(':::')[0] == value) {
+	    			for (activity in activities[category]) {
+	    				acts += "<option value='"+activities[category][activity].split(':::')[0]+"'>"+activities[category][activity].split(':::')[1]+"</option>";
+	    			}
+	    		}
+	    	}
+	    	$("#"+obj.id).parent().next().find("select").html(acts);
+	    }
+
+        $(document).ready(function(){
+            $('#dataTable').DataTable({
+		        "ordering": false,
+		        "info": false,
+		        "searching": false,
+		        "lengthChange": false,
+		        "autoWidth": false,
+		        "language": {
+			      "emptyTable": "No existing price data"
+			    }
+            });
+           
+            count = {{ count }};
+            $('button#add').click(function() {            	
+            	console.log(count);
+            	var html = '';
+            	html += '<tr>';            	
+
+            	html += '<td>';
+            	html += '<input name="user_id" value={{user_id}} type="hidden">';
+            	html += '<select id="'+ count +'" name="new['+count+'][category]" onchange="loadActivities(this)">';
+            	html += '<option selected disabled>-- please select a category --</option>';
+            	html += '{% for category in categories %}';
+            	html += '<option value="{{category.category_id}}">{{category.category}}</option>';
+            	html += '{% endfor %}';
+            	html += '</select>';
+            	html += '</td>';
+
+            	html += '<td>';
+            	html += '<select id="new[0][activity]" name="new['+count+'][activity]">';
+            	html += '<option disabled>Please select a category first</option>';
+            	html += '</select>';
+            	html += '</td>';
+
+            	html += '<td>';
+            	html += '<select name="new['+count+'][price]">';	
+            	html +=	'<option value="100">$100/hr</option>';
+				html +=	'<option value="200">$200/hr</option>';
+				html +=	'<option value="300">$300/hr</option>';
+				html +=	'<option value="400">$400/hr</option>';
+				html +=	'<option value="500">$500/hr</option>';
+				html +=	'<option value="600">$600/hr</option>';
+				html +=	'<option value="700">$700/hr</option>';
+				html +=	'<option value="800">$800/hr</option>';
+				html +=	'<option value="900">$900/hr</option>';
+				html +=	'<option value="1000">$1000/hr</option>';		
+				html +=	'</select>';
+            	html += '</td>';
+
+            	html += '<td>';
+            	html += '<a href="#" class="delete_row" onclick="deleteRow(this)"><img src="{{URL}}img/icn_delete.png"/></a>';
+            	html += '</td>';
+
+            	html += '</tr>';
+            	$('#dataTable tbody').append(html);
+            	count++;
+            });
+        });
+        function deleteRow(e) {
+        	e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
+        }
+    </script>
+{% endblock %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'peacher-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+							<form action="{{URL}}peacher/set-price/post" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<div class="row">
+									<div class="col-lg-6 col-md-6">
+										<div class="margin-bottom-8">
+											<h3>Set Price</h3>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6">
+										<div class="margin-bottom-8" style="text-align: right">
+											<button type="button" class="default secondary" id="add">Add new row</button>
+											<button type="submit" class="default" style="margin-left: 16px;">Save</button>
+										</div>
+									</div>
+								</div>
+								<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+									<thead>
+										<tr>
+											<th>Activity Category</th>
+											<th>Activity Name</th>
+											<th>Price</th>
+											<th>Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										{% set count1 = 0 %}
+										{% for userInfo in userPriceInfo %}
+											
+											<tr>
+												<td>
+													<input name="user_id" value={{user_id}} type="hidden">
+													<select id="{{count1}}" name="update[{{count1}}][category]" onchange="loadActivities(this)"  disabled>
+														{# {% for category in categories %} #}
+															{# <option value="{{category.category_id}}" {% if category.category_id == userInfo.category_id %} selected {% endif %} >{{category.category}}</option> #}
+															<option value="{{userInfo.category_id}}" selected>{{userInfo.category}}</option>
+														{# {% endfor %}} #}
+													</select>
+													<input type="hidden" value="{{userInfo.category_id}}" name="update[{{count1}}][category]">
+												</td>
+
+												<td>
+													<select id="update[0][activity]" name="update[{{count1}}][activity]" disabled>
+														{# {% for activityOption in activityOptions %} #}
+															{# {% if activityOption.category_id == userInfo.category_id %} #}
+																{# <option value="{{activityOption.activity_id}}" {% if activityOption.activity_id == userInfo.activity_id %} selected {% endif %}>{{activityOption.activity}}</option> #}
+																<option value="{{userInfo.activity_id}}" selected >{{userInfo.activity}}</option>
+															{# {% endif %} #}
+														{# {% endfor %} #}
+													</select> 
+													<input type="hidden" value="{{userInfo.activity_id}}" name="update[{{count1}}][activity]">
+												</td>
+
+												<td>
+													<select id="0" name="update[{{count1}}][price]">
+														{% for i in 1..10 %}
+															<option value="{{100*i}}" {% if (i*100) == userInfo.price %} selected {% endif %}>${{100*i}}/hr</option>
+															{# <option value="{{userInfo.price}}"selected>${{userInfo.price}}/hr</option> #}
+														{% endfor %}}
+													</select>
+												</td>
+												<td>
+													<a href="{{URL}}peacher/delete-price/{{userInfo.activity_id}}"><img src="{{URL}}img/icn_delete.png"/></a>
+												</td>
+											</tr>
+											{% set count1 = count1 + 1 %}
+										{% endfor %}
+
+
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

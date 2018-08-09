@@ -1,0 +1,181 @@
+{% set pageName = "Set Schedule" %}
+
+{% extends "base.twig" %}
+
+{% block css %}
+	{# <link rel="stylesheet" href="{{URL}}css/jquery.schedule.min.css" /> #}
+	{# <link rel="stylesheet" href="{{URL}}css/jquery-ui.min.css"> #}
+	<link rel="stylesheet" href="{{URL}}css/schedule_index.css">
+{% endblock %}
+
+{% block js %}
+	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script src="{{URL}}js/jquery.weekly-schedule-plugin.min.js"></script>
+	<script>
+	$(document).ready(function() {              
+        var data = {{schedule_json|raw}};
+        console.log(data);
+        var printt = data[0][1].substring(0,1) + "\\\\:00" + data[0][1].substring(1);
+        console.log(printt);
+        var dayContainer = $('.day');
+        console.log(dayContainer);
+        // #mySchedule > div.days-wrapper > div.day.sun > div.hour.\30 \3a 00AM
+        for (var i = 0; i < data.length; i++) {
+        	switch(data[i][0]) {
+        		case 0:
+        			var day = 'sun';
+        			break;
+        		case 1:
+        			var day = 'mon';
+        			break;
+        		case 2:
+        			var day = 'tue';
+        			break;
+        		case 3:
+        			var day = 'wed';
+        			break;
+        		case 4:
+        			var day = 'thu';
+        			break;
+        		case 5:
+        			var day = 'fri';
+        			break;
+        		case 6:
+        			var day = 'sat';
+        			break;
+        	}
+        	var printt = ".day." + day + " > .hour."+ data[i][1].substring(0,data[i][1].length-2) + "\\:00" + data[i][1].substring(data[i][1].length-2,data[i][1].length);
+        	console.log(printt);
+        	$(printt).addClass('selected');
+        }
+        // for data {
+        // 	$(".class.time_class").addClass('selected');
+        // }
+	});
+	$('#mySchedule').weekly_schedule({
+
+	  // Days displayed
+	  days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], 
+
+	  // Hours displyed
+	  hours: "0:00AM-11:00PM", 
+
+	  // Font used in the component
+	  fontFamily: "Montserrat", 
+
+	  // Font colot used in the component
+	  fontColor: "black", 
+
+	  // Font weight used in the component
+	  fontWeight: "100", 
+
+	  // Font size used in the component
+	  fontSize: "0.8em", 
+
+	  // Background color when hovered
+	  hoverColor: "#727bad", 
+
+	  // Background color when selected
+	  selectionColor: "#9aa7ee", 
+
+	  // Background color of headers
+	  headerBackgroundColor: "transparent",
+
+    // handler called after selection
+	  onSelected: function(){}, 
+
+	  // handler called after removal
+	  onRemoved: function(){} 
+	  
+	});
+
+	$('.schedule').on('selectionmade', function() {
+		console.log("Selection Made");
+	}).on('selectionremoved', function() {
+		console.log("Selection Removed");
+	});
+
+	function submitSchedule(){
+		var a = $('#mySchedule').weekly_schedule("getSelectedHour");
+		var arr = [];
+		for(i = 0; i < 7 ; i++){			
+			for (j = 0; j < a[i].length; j++)
+				arr.push([i, a[i][j].getAttribute("class").split(" ")[1].split(":00").join("")]);
+		}
+		console.log(arr);
+		// console.log(a[1].length);
+		var a_json = JSON.stringify(arr);
+		console.log(a);
+		// console.log(a_json);	 
+		var ipt = document.createElement('input');
+		ipt.setAttribute("name", "schedule");
+		ipt.value = a_json;
+		document.getElementById("myForm").appendChild(ipt);
+		document.getElementById("myForm").submit();
+	}
+	</script>
+
+{% endblock %}
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+
+		<div class="container">			
+			{# <input type="button" value="Export" id="export" class="btn btn-danger"> #}
+			{# <textarea id="result" class="form-control"></textarea> #}
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'peacher-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+					{# testing #}
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+							<form id="myForm" action="{{URL}}peacher/set-schedule/post" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<div class="row">
+										<div class="col-lg-6 col-md-6">
+											<div class="margin-bottom-8">
+												<h3>Set Schedule</h3>
+												<p style="color:#999999;margin-top:1px;">Please select all the timeslots that you are available.</p>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6">
+											<div class="margin-bottom-8" style="text-align: right">
+												<button type="button" class="default" style="margin-left: 16px;" onclick="submitSchedule()">Save</button>
+											</div>
+										</div>
+									</div>
+							<div id="mySchedule"></div>
+								
+								<div class="margin-bottom-8 margin-top-8" style="text-align: right">
+									<button type="button" class="default" style="margin-left: 16px;" onclick="submitSchedule()">Save</button>
+								</div>
+							</form>
+							{# <textarea id="result"></textarea> #}
+							{# <input type="button" value="Export" id="export" /> #}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

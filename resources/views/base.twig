@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        {% set URL = asset('/') %}
+        {% set siteName = "Peachy" %}
+        {% block head %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            {# {% if isMobile == true %} #}
+            <meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width" />
+            {# {% else %} #}
+            {# <meta name="viewport" content="user-scalable=yes, width=1200" /> #}
+            <title>{{pageName}} - {{siteName}}</title>
+            <meta name="description" content="">
+            <meta name="keywords" content="">
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+            <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,700|Roboto:400,500" rel="stylesheet">
+            <link rel="stylesheet" href="{{URL}}css/default.css?v=1.0.2" />
+            <link rel="stylesheet" href="{{URL}}css/bootstrap_grid.min.css" />
+            <link rel="stylesheet" href="{{URL}}css/bootstrap_alerts.min.css" />
+            <link rel="stylesheet" href="{{URL}}css/foundation_form.css" />
+            <link rel="stylesheet" href="{{URL}}css/foundation_table_pagination.css?v=1.0.0" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.13/r-2.1.1/datatables.min.css" />
+            <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.13/r-2.1.1/datatables.min.js"></script>
+        {% endblock %}
+        {% block css %}{% endblock %}
+    </head>
+    {% block body %}
+    <body>
+    {% endblock %}
+        <div id="container">
+            {% block header %}{% endblock %}
+            {% block nav %}{% endblock %}
+            {% block content %}{% endblock %}
+            {% block footer %}{% endblock %}
+        </div>
+        <!-- JavaScripts -->
+        {% block js %}{% endblock %}
+    </body>
+</html>

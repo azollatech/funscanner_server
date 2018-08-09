@@ -1,0 +1,75 @@
+{% set pageName = "Sign up for Peacher" %}
+{% extends "base.twig" %}
+
+{% block header %}
+	{# {% include 'header.twig' %} #}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 hidden-sm">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<div class="card">
+						<div class="margin-bottom-24">
+							<h3>Sign up for Peacher</h3>
+						</div>
+						<form role="form" method="POST" action="{{URL}}peacher-sign-up/post">
+                            <div class="input-group">
+								<label for="fullname" class="control-label">Full Name (Must be same as HK ID Card / Passport)</label>
+                                <input type="text" class="form-control" name="fullname" value="{{old('fullname')}}">
+                                {% if errors.has('fullname') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('fullname') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="input-group">
+								<label for="nickname" class="control-label">Nickname</label>
+                                <input type="text" class="form-control" name="nickname" value="{{old('nickname')}}">
+                                {% if errors.has('nickname') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('nickname') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="input-group">
+								<label for="date_of_birth" class="control-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth" placeholder="YYYY-MM-DD" value="{{old('date_of_birth')}}">
+                                {% if errors.has('date_of_birth') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('date_of_birth') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="input-group">
+								<label for="email" class="control-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" value="{{old('email')}}">
+                                {% if errors.has('email') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('email') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="input-group">
+								<label for="phone" class="control-label" value="{{old('phone')}}">Phone Number</label>
+                                <input type="text" class="form-control" name="phone">
+                                {% if errors.has('phone') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('phone') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<button class="default" type="submit" name="submit">Sign Up</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 hidden-sm">
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

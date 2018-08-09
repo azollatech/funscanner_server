@@ -1,0 +1,45 @@
+<?php
+
+namespace App;
+
+use DB;
+use Config;
+use PDO;
+use Illuminate\Database\Eloquent\Model;
+
+class Date_Model extends Model
+{
+	public static function sendRequest($user_id, $peacher_id, $start_datetime, $end_datetime, $place, $message_to_peacher) {
+		DB::insert('INSERT INTO peachy_request (user_id, peacher_id, start_datetime, end_datetime, place, message_to_peacher, expires_at) 
+			VALUES (:user_id, :peacher_id, :start_datetime, :end_datetime, :place, :message_to_peacher, NOW() + INTERVAL 3 DAY)', [
+			"user_id" => $user_id,
+			"start_datetime" => $start_datetime,
+			"end_datetime" => $end_datetime,
+			"peacher_id" => $peacher_id,
+			"place" => $place,
+			"message_to_peacher" => $message_to_peacher,
+			]);
+	}
+	public static function acceptRequest($request_id) {
+		DB::update('UPDATE peachy_request 
+			SET status = "accepted" 
+			WHERE request_id = :request_id', [
+			"request_id" => $request_id
+			]);
+	}
+	public static function makeNotification($notification_type, $sender_id, $receiver_id) {
+		DB::insert('INSERT INTO peachy_notification (notification_type, sender_id, receiver_id) 
+			VALUES (:notification_type, :sender_id, :receiver_id)', [
+			"notification_type" => $notification_type, 
+			"sender_id" => $sender_id,
+			"receiver_id" => $receiver_id
+			]);
+	}
+	public static function getImgToken($sender_id) {
+		DB::select('SELECT img_token_id FROM peachy_img_token 
+			WHERE user_id = :sender_id', [
+			"sender_id" = $sender_id
+			]);
+	}
+}
+

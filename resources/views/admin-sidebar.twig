@@ -1,0 +1,28 @@
+<div id="sidebar">
+	<nav class="student">
+		<ul>
+			<li>
+				<a href="{{URL}}admin/users"
+				class="{% if pageName == "Users" %}current{% endif %}"
+				>Users</a>
+			</li>
+			<li>
+				<a href="{{URL}}admin/peacher-approval" 
+					class="{% if pageName == "Peacher Approval" %}current{% endif %}">Peacher Approval</a>
+			</li>		
+			<li>
+				<a href="{{URL}}admin/withdrawal" 
+					class="{% if pageName == "Withdrawal" %}current{% endif %}">Withdrawal</a>
+			</li>				
+			
+			{# <li>
+				<a href="{{URL}}admin/reports-suggestions" 
+					class="{% if pageName == "Reports/Suggestions" %}current{% endif %}">Reports/Suggestions</a>
+			</li> #}
+
+			<li>
+				<a href="{{URL}}logout">Logout</a>
+			</li>
+		</ul>
+	</nav>
+</div>

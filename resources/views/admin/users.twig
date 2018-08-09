@@ -1,0 +1,136 @@
+{% set pageName = "Users" %}
+{% extends "base.twig" %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{URL}}css/jquery-ui.min.css">
+{% endblock %}
+
+{% block js %}
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="{{URL}}js/jquery-ui.min.js"></script>
+	<script>
+	  	$( function() {
+	    	$( "#tabs" ).tabs();
+	  	} );
+	  	$( document ).ready(function() {
+		    $("#add-user-account").hide();
+			$( "#show-add-user-account" ).click(function() {
+				$("#add-user-account").show();
+			});
+		});
+	  	
+  </script>
+{% endblock %}	
+
+{% block header %}
+	{% include 'header.twig' %}
+{% endblock %}
+
+{% block content %}
+	{% spaceless %}
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					{% include 'admin-sidebar.twig' %}
+				</div>
+				<div class="col-lg-9 col-md-9">
+					<div class="page-content">
+						{% if app.session.get('success_message') %}
+							{% for message in app.session.get('success_message') %}
+								<div class="alert alert-success">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						{% if app.session.get('error_message') %}
+							{% for message in app.session.get('error_message') %}
+								<div class="alert alert-danger">
+									{{message}}
+								</div>
+							{% endfor %}
+						{% endif %}
+						<div class="card">
+								<div class="row">
+									<div class="col-lg-6 col-md-6">
+										<div class="margin-bottom-8">
+											<h3>All Users</h3>
+										</div>
+									</div>
+								</div>
+								<div id="tabs">
+									<ul>
+										<li><a href = "#tab-1">Users</a>
+										<li><a href = "#tab-2">Peachers</a>
+										<li><a href = "#tab-3">Admins</a>
+									</ul>
+										<div id="tab-1"> 
+										<table id="dataTable" class="display" cellspacing="0" width="100%" style="width: 100%;">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>User Name</th>
+												<th>Nickname</th>
+												<th>Gender</th>
+											</tr>
+										</thead>
+										{% for user in all_users %}
+											<tbody>
+												<td>{{user['id']}}</td>
+												<td>{{user['username']}}
+												<td>{{user['nickname']}}</td>
+												<td>{{user['gender']}}</td>
+											</tbody>
+										{% endfor %}
+									</table>
+									</div>
+									<div id="tab-2">
+										<table id="dataTable" class="display"
+										cellspacing="0" width="100%" style="width:100%;">
+										<thead>
+											<tr>
+												<th>ID </th>
+												<th>User Name</th>
+												<th>Nickname</th>
+												<th>Gender</th>
+											</tr>
+										</thead>
+										{% for peacher in all_peachers %}
+											<tbody>
+												<td>{{peacher['id']}}</td>
+												<td>{{peacher['username']}}</td>
+												<td>{{peacher['nickname']}}</td>
+												<td>{{peacher['gender']}}</td>
+											</tbody>
+										{% endfor %}
+										</table>
+									</div>
+									<div id="tab-3">
+										<table id="dataTable" class="display"
+										cellspacing="0" width="100%" style="width:100%;">
+										<thead>
+											<tr>
+												<th>ID </th>
+												<th>User Name</th>
+												<th>Nickname</th>
+												<th>Gender</th>
+											</tr>
+										</thead>
+										{% for admin in all_admins %}
+											<tbody>
+												<td>{{admin['id']}}</td>
+												<td>{{admin['username']}}</td>
+												<td>{{admin['nickname']}}</td>
+												<td>{{admin['gender']}}</td>
+											</tbody>
+										{% endfor %}
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}

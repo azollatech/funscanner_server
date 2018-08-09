@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\ForwardCall_Model as ForwardCall_Model;
+use Plivo\Response;
+
+class ForwardCallController extends Controller
+{
+    
+
+    public function callPlivoNumber() {
+        $user_id = $_POST["user_id"];
+        $date_id = $_POST["date_id"];
+        
+        $result = ForwardCall_Model::addToTable($user_id, $date_id);
+        if ($result) {
+            return response()->json(array('success' => true));
+        } else {
+            return response()->json(array('success' => false));
+        }
+    }
+    public function mapping() {
+        // Fetch the from_number from the URL
+        $from_number = $_REQUEST['From'];
+        $r = new Response();
+        // Add Dial tag
+        $params = array(
+            'callerId' => $from_number # Caller ID
+        );
+
+        $opponent_info = ForwardCall_Model::getOpponentInfo($from_number);
+        // $data = ForwardCall_Model::mapping(96, 114);
+        // $data = ForwardCall_Model::mapping(12345678);
+        // echo "<pre>",print_r($opponent_info,1),"</pre>";
+
+        $d = $r->addDial($params);
+        $number = $opponent_info[0]['phone_number'];
+        $d->addNumber($number);
+        Header('Content-type: text/xml');
+        echo($r->toXML());
+    }
+}
+?>
