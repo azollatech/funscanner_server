@@ -30,7 +30,7 @@ class Activity_Model extends Model
 			INNER JOIN peachy_user_info pui
 			ON pui.user_id = pad.user_id
 			WHERE pad.user_id = :user_id
-			ORDER BY datetime desc', [
+			ORDER BY created_at desc', [
 				'user_id'=>$user_id
 			]);
 		return $data;
@@ -42,7 +42,7 @@ class Activity_Model extends Model
 			INNER JOIN peachy_activity_mapping pam
 			ON pa.activity_id = pam.activity_id
 			WHERE pam.category_id = :category_id
-			ORDER BY datetime desc', [
+			ORDER BY created_at desc', [
 				'category_id'=>$category_id
 			]);
 		return $data;
