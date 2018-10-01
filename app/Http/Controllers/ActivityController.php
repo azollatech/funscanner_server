@@ -83,10 +83,11 @@ class ActivityController extends Controller
         $category_id = $_GET["category_id"];
         $activities = Activity_Model::getActivitiesByCategory($category_id);
 
-        // foreach ($activities as &$activity) {
-        //     // $activity['activity_image'] = $profile_image;
-        //     // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
-        // }
+        foreach ($activities as &$activity) {
+            $activity['price'] = (string) $activity['price'];
+            // $activity['activity_image'] = $profile_image;
+            // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
+        }
 
         return response()->json(array('success' => true, 'data' => $activities));
     }
