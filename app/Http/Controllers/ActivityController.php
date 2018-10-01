@@ -42,7 +42,7 @@ class ActivityController extends Controller
         return response()->json(array("success"=>true));
     }
 
-    public function getMyActivity(Request $request){
+    public function getParticularActivity(Request $request){
         $user = $request->user();
         $user_id = $user->getId();
 
@@ -52,19 +52,18 @@ class ActivityController extends Controller
             $lang = 'en';
         }
 
-
-        $activities = Activity_Model::myActivities($user_id);
-        $imageToken = Search_Model::convertPeacherIDToImageToken($user_id);
-        $profile_image = URL."api/image/".$imageToken;
-
-        foreach ($activities as &$activity) {
-            $activity['profile_image'] = $profile_image;
-            $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
+        if (!isset($_GET["activity_id"])) {
+            return response()->json(array('success' => false));
         }
 
+        $data = Activity_Model::getParticularActivity($activity_id);
 
+        // foreach ($activities as &$activity) {
+        //     // $activity['profile_image'] = $profile_image;
+        //     // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
+        // }
 
-        return response()->json(array('success' => true, 'data' => $activities));
+        return response()->json(array('success' => true, 'data' => $data));
     }
 
     public function getActivitiesByCategory(Request $request) {

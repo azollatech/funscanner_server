@@ -24,7 +24,7 @@ class Activity_Model extends Model
 		return $data;
 	}
 
-	public static function myActivities($user_id) {
+	public static function getParticularActivity($activity_id) {
 		$data = DB::select('SELECT pad.activity_name, pad.activity_description, pad.datetime, pad.category_id, pui.nickname, pad.participants_no, pad.created_at
 			FROM peachy_activity_details pad
 			INNER JOIN peachy_user_info pui
@@ -37,7 +37,7 @@ class Activity_Model extends Model
 	}
 
 	public static function getActivitiesByCategory($category_id) {
-		$data = DB::select('SELECT pa.activity_id, pa.activity_name, pa.details, pa.address, pa.traffic, pa.hours, pa.must_know, pa.created_at
+		$data = DB::select('SELECT pa.activity_id, pa.activity_name, pa.price, pa.details, pa.address, pa.traffic, pa.hours, pa.must_know, pa.created_at
 			FROM peachy_activity pa
 			INNER JOIN peachy_activity_mapping pam
 			ON pa.activity_id = pam.activity_id
