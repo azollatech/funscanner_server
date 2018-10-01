@@ -31,7 +31,7 @@ class ActivityController extends Controller
                     $category_id = 1;
             }
         };
-        
+
         $name = $_POST["activity_name"];
         $description = $_POST["activity_description"];
         $duration = $_POST["duration"];
@@ -62,9 +62,33 @@ class ActivityController extends Controller
             $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
         }
 
-        
+
+
+        return response()->json(array('success' => true, 'data' => $activities));
+    }
+
+    public function getActivitiesByCategory(Request $request) {
+        $user = $request->user();
+        $user_id = $user->getId();
+
+        if (isset($_GET["lang"])) {
+            $lang = $_GET["lang"];
+        } else {
+            $lang = 'en';
+        }
+
+        if (isset($_GET["category_id"])) {
+            return response()->json(array('success' => false));
+        }
+
+        $category_id = $_GET["category_id"];
+        $activities = Activity_Model::getActivitiesByCategory($category_id);
+
+        // foreach ($activities as &$activity) {
+        //     // $activity['activity_image'] = $profile_image;
+        //     // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
+        // }
 
         return response()->json(array('success' => true, 'data' => $activities));
     }
 }
-

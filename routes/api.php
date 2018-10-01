@@ -18,8 +18,9 @@ use Illuminate\Http\Request;
 // });
 Route::middleware('auth:api')->group(function() {
 	// Activity
-	Route::post('/create-new-activity', 'ActivityController@createNewActivity');
-	Route::get('/my-activity', 'ActivityController@getMyActivity');
+	Route::get('/activities', 'ActivityController@getActivitiesByCategory');
+	// Route::post('/create-new-activity', 'ActivityController@createNewActivity');
+	// Route::get('/my-activity', 'ActivityController@getMyActivity');
 	// Profile
 	Route::get('/profile', 'ProfileController@profile');
 	Route::post('/save-new-profile', 'ProfileController@saveNewProfile');
@@ -42,7 +43,7 @@ Route::middleware('auth:api')->group(function() {
 	Route::get('/select-history', 'DateController@selectHistory');
 
 	// Search
-	Route::get('/filter-search', 'SearchController@filterSearch');
+	// Route::get('/filter-search', 'SearchController@filterSearch');
 	Route::get('/image/{token}', 'SearchController@image');
 
 	// Device Token
@@ -62,16 +63,16 @@ Route::middleware('auth:api')->group(function() {
 	Route::post('/report', 'SuggestionsController@report');
 
 	// Peacher Sign Up
-	Route::post('/peacher-signup', 'PeacherSignupController@peacherSignup');
+	// Route::post('/peacher-signup', 'PeacherSignupController@peacherSignup');
 
 	// Peacher make call
-	Route::post('/call', 'ForwardCallController@callPlivoNumber');
+	// Route::post('/call', 'ForwardCallController@callPlivoNumber');
 
 	// Logout
 	Route::post('/logout', 'LoginApiController@logout');
 });
-Route::get('/search', 'SearchController@search');
-Route::get('/test-search', 'SearchController@testSearch');
+// Route::get('/search', 'SearchController@search');
+// Route::get('/test-search', 'SearchController@testSearch');
 Route::post('/google-login', 'LoginApiController@googleLogin');
 Route::post('/facebook-login', 'LoginApiController@facebookLogin');
 Route::post('/signup', 'LoginApiController@signup');
