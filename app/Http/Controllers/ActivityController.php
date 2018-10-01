@@ -77,7 +77,7 @@ class ActivityController extends Controller
             $lang = 'en';
         }
 
-        if (isset($_GET["category_id"])) {
+        if (!isset($_GET["category_id"])) {
             return response()->json(array('success' => false));
         }
 
