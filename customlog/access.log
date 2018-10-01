@@ -1060,3 +1060,23 @@ Array
 
 )
 
+Array
+(
+    [nickname] => abc
+    [dob] => 2018-08-25
+    [gender] => female
+)
+
+Array
+(
+    [file] => Array
+        (
+            [name] => hello.jpg
+            [type] => image/jpg
+            [tmp_name] => /tmp/phpIR7liE
+            [error] => 0
+            [size] => 847612
+        )
+
+)
+

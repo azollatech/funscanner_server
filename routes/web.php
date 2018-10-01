@@ -14,7 +14,7 @@ Route::get('test', 'PaymentController@createCustomer');
 
 // global contants for all requests
 Route::group(['prefix' => ''], function() {
-    define('URL','https://peachy.world/');
+    define('URL','http://peachy.archimedes-tech.com/');
 });
 
 // Route::get('test', 'PushNotiController@sendPushNotification');

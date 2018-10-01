@@ -1,14 +1,25 @@
 <?php
-
 namespace App;
-
 use DB;
 use Config;
 use PDO;
 use Illuminate\Database\Eloquent\Model;
-
 class Search_Model extends Model
 {
+
+// ---------------------
+	public static function getActivityViaCategoryID($category_id){
+		$data = DB::select('SELECT activity_details_id, pad.user_id, category_id, activity_name, activity_description, pad.created_at, username, pui.nickname, pui.gender, pui.date_of_birth, pui.bio, pui.occupation, pui.education, pui.religion, pui.hobby, pui.fav_movie, pui.fav_book, pui.language FROM peachy_activity_details pad
+			INNER JOIN users ON users.id = pad.user_id
+			INNER JOIN peachy_user_info pui ON pui.user_id = pad.user_id
+			WHERE category_id = :category_id 
+			ORDER BY created_at DESC', 
+			[
+				'category_id'=> $category_id
+			]);
+		return $data;
+	}
+// ---------------------
 	public static function searchFrequencyCheck($user_id){
 		$data = DB::select('SELECT * FROM peachy_search_history 
 			WHERE user_id = :user_id 
@@ -34,7 +45,7 @@ class Search_Model extends Model
 			]);
 		return $result[0]["activity_id"];
 	}
-	public static function filterSearch($user_id, $gender, $ageFrom, $ageTo, $priceRange, $date, $venue, $category_id, $activity_id){
+	public static function filterSearch($user_id, $gender, $ageFrom, $ageTo, $priceRange, $date, $venue, $category_id){
 		// echo $category_id;
 		// echo $activity_id;
 		$search_result = DB::select('SELECT pui.user_id, pui.nickname, pui.gender, pui.price, pui.date_of_birth, pui.bio, pui.occupation, pui.education, pui.religion, pui.hobby, pui.fav_movie, pui.fav_book, pui.language
@@ -48,10 +59,10 @@ class Search_Model extends Model
                     FROM peachy_set_price AS psp
                     WHERE  psp.user_id = users.id AND psp.category_id = :category_id1)
                 OR :category_id2 IS NULL)
-            AND (EXISTS (SELECT psp.set_price_id
-                    FROM peachy_set_price AS psp
-                    WHERE  psp.user_id = users.id AND psp.activity_id = :activity_id1)
-                OR :activity_id2 IS NULL)
+            -- AND (EXISTS (SELECT psp.set_price_id
+            --         FROM peachy_set_price AS psp
+            --         WHERE  psp.user_id = users.id AND psp.activity_id = :activity_id1)
+            --     OR :activity_id2 IS NULL)
             AND pui.user_id != :user_id
 			ORDER BY RAND()', [
 				"gender1" => $gender,
@@ -63,8 +74,8 @@ class Search_Model extends Model
 				"ageTo2" => $ageTo,
 				"category_id1" => $category_id,
 				"category_id2" => $category_id,
-				"activity_id1" => $activity_id,
-				"activity_id2" => $activity_id,
+				// "activity_id1" => $activity_id,
+				// "activity_id2" => $activity_id,
 				"user_id" => $user_id
 			]);
 		return $search_result;

@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::middleware('auth:api')->group(function() {
+	// Activity
+	Route::post('/create-new-activity', 'ActivityController@createNewActivity');
+	Route::get('/my-activity', 'ActivityController@getMyActivity');
 	// Profile
 	Route::get('/profile', 'ProfileController@profile');
 	Route::post('/save-new-profile', 'ProfileController@saveNewProfile');
