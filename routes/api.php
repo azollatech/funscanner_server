@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->group(function() {
 	// Activity
 	Route::get('/activities', 'ActivityController@getActivitiesByCategory');
+	Route::get('/activity-options', 'ActivityController@getActivityOptions');
 	// Route::post('/create-new-activity', 'ActivityController@createNewActivity');
 	// Route::get('/my-activity', 'ActivityController@getMyActivity');
 	// Profile
