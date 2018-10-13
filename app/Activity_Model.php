@@ -48,7 +48,7 @@ class Activity_Model extends Model
 		return $data;
 	}
 
-	public static funciton getActivityOptions($activity_id) {
+	public static function getActivityOptions($activity_id) {
 		$data = DB::select('SELECT package_id, package_name, package_price
 			FROM peachy_activity_package
 			WHERE activity_id = :activity_id
