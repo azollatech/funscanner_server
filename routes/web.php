@@ -14,7 +14,7 @@ Route::get('test', 'PaymentController@createCustomer');
 
 // global contants for all requests
 Route::group(['prefix' => ''], function() {
-    define('URL','http://http://funscanner.co/');
+    define('URL','http://funscanner.co/');
 });
 
 // Route::get('test', 'PushNotiController@sendPushNotification');
