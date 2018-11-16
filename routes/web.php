@@ -65,11 +65,3 @@ Route::post('incoming', 'ForwardCallController@getIncomingCall');
 // Signin/Login/Logout
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
-
-
-Route::post('panda-bubble-suggestions', function() {
-    DB::table('panda_bubble_suggestions')
-        ->insert(['name' => $_POST['name'], 'email' => $_POST['email'], 'suggestions' => $_POST['suggestions']]);
-
-    return response()->json(['success' => true]);
-});

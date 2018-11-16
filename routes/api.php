@@ -77,3 +77,12 @@ Route::middleware('auth:api')->group(function() {
 Route::post('/google-login', 'LoginApiController@googleLogin');
 Route::post('/facebook-login', 'LoginApiController@facebookLogin');
 Route::post('/signup', 'LoginApiController@signup');
+
+
+// Panda Bubble
+Route::post('panda-bubble-suggestions', function() {
+    DB::table('panda_bubble_suggestions')
+        ->insert(['name' => $_POST['name'], 'email' => $_POST['email'], 'suggestions' => $_POST['suggestions']]);
+
+    return response()->json(['success' => true]);
+});
