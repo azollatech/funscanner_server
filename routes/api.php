@@ -82,7 +82,7 @@ Route::post('/signup', 'LoginApiController@signup');
 // Panda Bubble
 Route::post('panda-bubble-suggestions', function() {
 	if (!empty($_POST['name']) || !isset($_POST['email']) || !isset($_POST['suggestions'])) {
-		return response()->json(['success' => false, 'name' => $_POST['name'], 'email' => $_POST['email'], 'suggestions' => $_POST['suggestions']);
+		return response()->json([ 'success' => false, 'name' => $_POST['name'], 'email' => $_POST['email'], 'suggestions' => $_POST['suggestions'] ]);
 	}
     DB::table('panda_bubble_suggestions')
         ->insert(['name' => $_POST['name'], 'email' => $_POST['email'], 'suggestions' => $_POST['suggestions']]);
