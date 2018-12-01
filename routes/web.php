@@ -65,3 +65,15 @@ Route::post('incoming', 'ForwardCallController@getIncomingCall');
 // Signin/Login/Logout
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
