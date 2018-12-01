@@ -17,10 +17,8 @@ class AdminController extends Controller
         if (Auth::check()){
             $user_id = Auth::user()->getId();
             $username = Auth::user()->getUsername();
-        } else {
-            return Redirect::to('/');
         }
-        return View::make('admin/index')->with(array("user_id" => $user_id, "username" => $username));
+        return View::make('admin/dashboard')->with(array("user_id" => $user_id, "username" => $username));
     }
 
     public function peacherApproval() {
@@ -60,7 +58,7 @@ class AdminController extends Controller
         return View::make('admin/users')->with(array("user_id" => $user_id, "username" => $username, "all_users" => $all_users, "all_peachers"=>$all_peachers,"all_admins"=>$all_admins));
 
     }
-    
+
     public function approvePeacher($user_id, $peacher_signup_id) {
         if (Auth::check()){
             $user_id = Auth::user()->getId();
