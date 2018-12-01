@@ -183,6 +183,9 @@ return [
         // TwigBridge
         TwigBridge\ServiceProvider::class,
 
+        // AdminLTE
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+
         'Aloha\Twilio\Support\Laravel\ServiceProvider',
     ],
 
