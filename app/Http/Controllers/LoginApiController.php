@@ -47,7 +47,7 @@ class LoginApiController extends Controller
                         $user = User::find($user_id);
                         $first_time = true;
 
-                        LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
+                        // LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
                         LoginApi_Model::createFullUserID($user_id, $this->generateRandomString());
                     }
 
@@ -111,7 +111,7 @@ class LoginApiController extends Controller
 		                    $user = User::find($user_id);
                             $first_time = true;
 
-                            LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
+                            // LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
                             LoginApi_Model::createFullUserID($user_id, $this->generateRandomString());
 		                }
 
@@ -181,11 +181,11 @@ class LoginApiController extends Controller
 
             $user_id = $user->getId();
             LoginApi_Model::saveEmailSignUpToUser($user_id);
-            LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
+            // LoginApi_Model::createImageToken($user_id, $this->generateRandomString());
             LoginApi_Model::createFullUserID($user_id, $this->generateRandomString());
 
             $client = new Client(); //GuzzleHttp\Client
-            $response = $client->post('http://peachy.world/oauth/token', [
+            $response = $client->post(URL . "oauth/token", [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => '2',
@@ -205,9 +205,18 @@ class LoginApiController extends Controller
     public function logout(Request $request) {
         $user = $request->user();
         $user_id = $user->getId();
+        $accessToken = $user->token();
 
-        LoginApi_Model::logout($user_id);
-            return response()->json(['success' => true]);
+        // remove device_token
+        if (!empty($_POST['device_token'])) {
+            $device_token = $_POST['device_token'];
+            LoginApi_Model::removeDeviceToken($device_token, $user_id);
+        }
+
+        // revoke access_token
+        LoginApi_Model::revokeAccessToken($accessToken);
+
+        return response()->json(['success' => true]);
     }
 
     private function writeToLog($text) {
@@ -225,5 +234,5 @@ class LoginApiController extends Controller
         }
         return $randomString;
     }
-    
+
 }
