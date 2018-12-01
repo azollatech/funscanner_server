@@ -50,12 +50,6 @@ class LoginController extends Controller
             ['email' => $request->input('username'), 'password' => $request->input('password')],
             $request->has('remember'));
     }
-    protected function attempLoginUsingUsernameAsAnEmail(Request $request)
-    {
-        return $this->guard()->attempt(
-            ['username' => $request->input('username'), 'password' => $request->input('password')],
-            $request->has('remember'));
-    }
 
     /**
      * Create a new controller instance.
