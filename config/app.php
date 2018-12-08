@@ -183,9 +183,13 @@ return [
         // TwigBridge
         TwigBridge\ServiceProvider::class,
 
+        // Intervention image
+        Intervention\Image\ImageServiceProvider::class,
+
         // AdminLTE
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
+        // Twilio
         'Aloha\Twilio\Support\Laravel\ServiceProvider',
     ],
 
@@ -239,6 +243,10 @@ return [
         // TwigBridge
         'Twig' => TwigBridge\Facade\Twig::class,
 
+        // Intervention image
+        'Image' => Intervention\Image\Facades\Image::class,
+
+        // Twilio
         'Twilio' => 'Aloha\Twilio\Support\Laravel\Facade',
 
     ],
