@@ -25,7 +25,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/logged-in';
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->is_admin == 1 ) {// do your magic here
+            return redirect('admin');
+        }
+
+        return redirect('error');
+    }
+    // protected $redirectTo = '/logged-in';
 
     /**
      * Override the username method used to validate login
