@@ -35,9 +35,15 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <img class="img-upload" id='img-upload' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
-                                                    <img class="img-upload" id='img-upload-full' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
-                                                    <img class="img-upload" id='img-upload-rect' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
+                                                    <div>
+                                                        Square Thumbnail
+                                                        <img class="img-upload" id='img-upload' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
+                                                    </div>
+                                                    {{-- <img class="img-upload" id='img-upload-full' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/> --}}
+                                                    <div>
+                                                        Rectangular Thumbnail
+                                                        <img class="img-upload" id='img-upload-rect' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
