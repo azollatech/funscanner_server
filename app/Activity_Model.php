@@ -37,7 +37,7 @@ class Activity_Model extends Model
 	// }
 
 	public static function getActivitiesByCategory($category_id) {
-		$data = DB::select('SELECT pa.activity_id, pa.activity_name, pa.price, pa.details, pa.address, pa.traffic, pa.hours, pa.must_know, pa.created_at, pa.activity_photo
+		$data = DB::select('SELECT pa.activity_id, pa.activity_name, pa.price, pa.details, pa.address, pa.traffic, pa.hours, pa.must_know, pa.created_at, pa.district_id, pa.activity_photo
 			FROM peachy_activity pa
 			INNER JOIN peachy_activity_mapping pam
 			ON pa.activity_id = pam.activity_id
