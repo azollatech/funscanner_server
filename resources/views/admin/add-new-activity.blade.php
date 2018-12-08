@@ -26,7 +26,7 @@
                                                     <div class="input-group btn-group">
                                                         <span class="btn btn-primary">
                                                             <span class="btn-file">
-                                                                Browse <input type="file" id="imgInp" name="shop_photo">
+                                                                Browse <input type="file" id="imgInp" name="activity_photo">
                                                             </span>
                                                         </span>
                                                         <input type="text" class="form-control" style="width: 320px;" disabled>
