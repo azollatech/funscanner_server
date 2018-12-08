@@ -87,6 +87,11 @@ class ActivityController extends Controller
             $activity['price'] = (string) $activity['price'];
             $activity['rect_img'] = URL."activity_img/rect_thumb/".$activity['activity_photo'];
             $activity['sq_img'] = URL."activity_img/sq_thumb/".$activity['activity_photo'];
+
+            $district = DB::table('district')
+                ->where('district_id', $activity['district_id'])
+                ->first();
+            $activity['district'] = $district['district_zh_hk'];
             // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
         }
 
