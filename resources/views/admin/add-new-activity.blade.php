@@ -55,11 +55,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Details</label>
-                                            <input type="text" class="form-control" name="details">
+                                            <textarea class="form-control" rows="7" name="details"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input type="text" class="form-control" name="address">
+                                            <textarea class="form-control" rows="7" name="address"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>District</label>
@@ -70,16 +70,20 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6" style="vertical-align: top;">
                                         <div class="form-group">
                                             <label>Traffic</label>
                                             <input type="text" class="form-control" name="traffic">
                                         </div>
                                         <div class="form-group">
                                             <label>Must Know</label>
-                                            <input type="text" class="form-control" name="must_know">
+                                            <textarea class="form-control" rows="7" name="must_know"></textarea>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6" style="vertical-align: top;">
+                                        <div class="form-group">
+                                            <label>Duration</label>
+                                            <input type="text" class="form-control" name="duration">
+                                        </div>
                                         <div class="form-group">
                                             <label>Opening Hours Weekdays</label>
                                             <div>
@@ -121,16 +125,6 @@
                                                 <label class="form-check-label">Closed</label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Duration</label>
-                                            <input type="text" class="form-control" name="duration">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary">Add Shop</button>
                                     </div>
                                 </div>
                             </form>
