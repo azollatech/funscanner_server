@@ -20,7 +20,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Upload Image</label>
-                                    <div class="input-group btn-group">
+                                    <div class="input-group btn-group browse-image-wrapper">
                                         <span class="btn btn-primary">
                                             <span class="btn-file">
                                                 Browse <input type="file" id="imgInp" name="shop_photo">
@@ -184,7 +184,7 @@
             border: 1px solid lightgrey;
             background: #f5f5f5;
         }
-        /* #img-upload{
+        #img-upload{
             width: 320px;
             height: 320px;
             object-fit: cover;
@@ -198,7 +198,10 @@
             width: 360px;
             height: 180px;
             object-fit: cover;
-        } */
+        }
+        .browse-image-wrapper input {
+            width: 320px;
+        }
     </style>
 @stop
 
