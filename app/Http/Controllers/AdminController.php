@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Admin_Model as Admin_Model;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use DB;
 
 class AdminController extends Controller
 {
