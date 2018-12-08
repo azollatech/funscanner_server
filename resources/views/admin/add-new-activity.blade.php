@@ -55,11 +55,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Details</label>
-                                            <textarea class="form-control" rows="7" name="details"></textarea>
+                                            <textarea class="form-control" rows="3" name="details"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <textarea class="form-control" rows="7" name="address"></textarea>
+                                            <textarea class="form-control" rows="3" name="address"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>District</label>
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Must Know</label>
-                                            <textarea class="form-control" rows="7" name="must_know"></textarea>
+                                            <textarea class="form-control" rows="3" name="must_know"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Duration</label>
