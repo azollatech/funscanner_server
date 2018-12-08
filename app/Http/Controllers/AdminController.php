@@ -55,7 +55,7 @@ class AdminController extends Controller
 
         // insert into mapping table
         $activity_id = DB::getPdo()->lastInsertId();
-        DB::table('peachy_activity')
+        DB::table('peachy_activity_category')
             ->insert(array('category_id' => $category_id, 'activity_id' => $activity_id));
 
         return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
