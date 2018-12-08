@@ -41,31 +41,7 @@ class AdminController extends Controller
         DB::table('peachy_activity')
             ->insert($data2);
 
-        return redirect('admin');
-    }
-
-    public function peacherApproval() {
-        if (Auth::check()){
-            $user_id = Auth::user()->getId();
-            $username = Auth::user()->getUsername();
-        } else {
-            return Redirect::to('/');
-        }
-
-        $all_peachers = Admin_Model::getPeachers();
-        return View::make('admin/peacher-approval')->with(array("user_id" => $user_id, "username" => $username, "all_peachers" => $all_peachers));
-    }
-
-    public function withdrawal() {
-        if (Auth::check()){
-            $user_id = Auth::user()->getId();
-            $username = Auth::user()->getUsername();
-        } else {
-            return Redirect::to('/');
-        }
-
-        $all_current_balance = Admin_Model::getCurrentBalance('all');
-        return View::make('admin/withdrawal')->with(array("user_id" => $user_id, "username" => $username, "all_current_balance" => $all_current_balance));
+        return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
     }
 
     private function postParamsToData($post) {
@@ -163,6 +139,30 @@ class AdminController extends Controller
         return $randomString;
     }
 }
+
+// public function peacherApproval() {
+//     if (Auth::check()){
+//         $user_id = Auth::user()->getId();
+//         $username = Auth::user()->getUsername();
+//     } else {
+//         return Redirect::to('/');
+//     }
+//
+//     $all_peachers = Admin_Model::getPeachers();
+//     return View::make('admin/peacher-approval')->with(array("user_id" => $user_id, "username" => $username, "all_peachers" => $all_peachers));
+// }
+//
+// public function withdrawal() {
+//     if (Auth::check()){
+//         $user_id = Auth::user()->getId();
+//         $username = Auth::user()->getUsername();
+//     } else {
+//         return Redirect::to('/');
+//     }
+//
+//     $all_current_balance = Admin_Model::getCurrentBalance('all');
+//     return View::make('admin/withdrawal')->with(array("user_id" => $user_id, "username" => $username, "all_current_balance" => $all_current_balance));
+// }
 
 //     public function users(){
 //         if (Auth::check()){
