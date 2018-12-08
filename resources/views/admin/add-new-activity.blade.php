@@ -20,13 +20,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Upload Image</label>
-                                    <div class="input-group btn-group browse-image-wrapper">
+                                    <div class="input-group btn-group">
                                         <span class="btn btn-primary">
                                             <span class="btn-file">
                                                 Browse <input type="file" id="imgInp" name="shop_photo">
                                             </span>
                                         </span>
-                                        <input type="text" class="form-control" disabled>
+                                        <input type="text" class="form-control" style="width: 320px;" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -198,9 +198,6 @@
             width: 360px;
             height: 180px;
             object-fit: cover;
-        }
-        .browse-image-wrapper input {
-            width: 320px;
         }
     </style>
 @stop
