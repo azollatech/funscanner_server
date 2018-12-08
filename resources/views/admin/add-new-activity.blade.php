@@ -78,8 +78,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Category</label>
-                                            <select class="form-control" name="district_id">
-                                                <option selected disabled>Select a district</option>
+                                            <select class="form-control" name="category_id">
+                                                <option selected disabled>Select a category</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{$category->category_id}}">{{$category->category}}</option>
                                                 @endforeach
