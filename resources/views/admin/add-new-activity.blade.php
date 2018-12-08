@@ -35,12 +35,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div>
+                                                    <div style="display: inline-block; margin-top: 8px;">
                                                         <div>Square Thumbnail</div>
                                                         <img class="img-upload" id='img-upload' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
                                                     </div>
                                                     {{-- <img class="img-upload" id='img-upload-full' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/> --}}
-                                                    <div>
+                                                    <div style="display: inline-block; margin-top: 8px;">
                                                         <div>Rectangular Thumbnail</div>
                                                         <img class="img-upload" id='img-upload-rect' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
                                                     </div>
@@ -168,7 +168,7 @@
             display: block;
         }
         .img-upload {
-            margin-top: 8px;
+            margin-top: 2px;
             vertical-align: top;
             border: 1px solid lightgrey;
             background: #f5f5f5;
