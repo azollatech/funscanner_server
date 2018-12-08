@@ -11,6 +11,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            @include('alert')
+            
             <div class="box">
                 <div class="box-header">
                     <div class="box-body">
