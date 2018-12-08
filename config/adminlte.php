@@ -120,7 +120,7 @@ return [
             'icon'        => 'plus',
             'label_color' => 'success',
         ],
-        'ACCOUNT SETTINGS (Coming Soon)',
+        'ACCOUNT SETTINGS (COMING SOON)',
         [
             'text' => 'Profile',
             'url'  => 'admin/settings',
