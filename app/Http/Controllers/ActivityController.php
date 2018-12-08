@@ -91,7 +91,7 @@ class ActivityController extends Controller
             $district = DB::table('district')
                 ->where('district_id', $activity['district_id'])
                 ->first();
-            $activity['region'] = $district['district_zh_hk'];
+            $activity['region'] = !empty($district) ? $district['district_zh_hk'] : "";
             unset($activity['district_id']);
             // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
         }
