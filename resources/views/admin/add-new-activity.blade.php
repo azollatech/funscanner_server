@@ -185,7 +185,7 @@
         }
         #img-upload-rect{
             width: 360px;
-            height: 140px;
+            height: 160px;
             object-fit: cover;
         }
     </style>

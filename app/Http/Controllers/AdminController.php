@@ -138,10 +138,14 @@ class AdminController extends Controller
             }
 
             // create thumbnail
-            $thumbnail640Path = $storage_path.'thumbnail-640/'.$filename;
-            $img640 = Image::make($target_file)
+            $sqThumbPath = $storage_path.'sq-thumb/'.$filename;
+            $recThumbPath = $storage_path.'rect-thumb/'.$filename;
+            $sq = Image::make($target_file)
                 ->fit(640, 640);
-            $img640->save($thumbnail640Path);
+            $sq->save($sqThumbPath);
+            $rect = Image::make($target_file)
+                ->fit(360, 160);
+            $rect->save($recThumbPath);
 
             // filename
             $data['activity_photo'] = $filename;
