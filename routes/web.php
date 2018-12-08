@@ -35,6 +35,7 @@ Route::get('logged-in', 'HomeController@loggedIn');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 	Route::get('/', 'AdminController@index');
 	Route::get('add-new-activity', 'AdminController@addNewActivity');
+	Route::post('post-new-activity', 'AdminController@postNewActivity');
 	// Route::get('users','AdminController@users');
 	// Route::get('users/{Users}/{Peachers}/{Admin}', 'AdminController@users');
 	// Route::get('peacher-approval', 'AdminController@peacherApproval');

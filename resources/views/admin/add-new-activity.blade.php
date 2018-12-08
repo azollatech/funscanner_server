@@ -15,7 +15,7 @@
                 <div class="box-header">
                     <div class="box-body">
                         <div class="add-shop">
-                            <form action="{{url('/')}}/admin/add-shop" method="post" enctype="multipart/form-data">
+                            <form action="{{url('/')}}/admin/post-new-activity" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row mt-5">
                                     <div class="col-md-12">
