@@ -46,18 +46,16 @@ class AdminController extends Controller
         // image file data
         $data2 = $this->storeImageFile($data, $_FILES);
 
-        print_r($data2);
-
         // insert into activity table
-        // DB::table('peachy_activity')
-        //     ->insert($data2);
-        //
-        // // insert into mapping table
-        // $activity_id = DB::getPdo()->lastInsertId();
-        // DB::table('peachy_activity')
-        //     ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
-        //
-        // return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
+        DB::table('peachy_activity')
+            ->insert($data2);
+
+        // insert into mapping table
+        $activity_id = DB::getPdo()->lastInsertId();
+        DB::table('peachy_activity')
+            ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
+
+        return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
     }
 
     private function postParamsToData($post) {
@@ -112,22 +110,26 @@ class AdminController extends Controller
             // Check if image file is a actual image or fake image
             $check = getimagesize($files["activity_photo"]["tmp_name"]);
             if($check == false) {
-                return response()->json(array("success"=>false, "error"=>"File is not an image."));
+                echo response()->json(array("success"=>false, "error"=>"File is not an image."));
+                return false;
             }
 
             // Check file size
             if ($files["activity_photo"]["size"] > 100000000) {
-                return response()->json(array("success"=>false, "error"=>"Sorry, your file is too large."));
+                echo response()->json(array("success"=>false, "error"=>"Sorry, your file is too large."));
+                return false;
             }
 
             // Allow certain file formats
             if($imageFileType != "jpg") {
-                return response()->json(array("success"=>false, "error"=>"Sorry, only JPG files are allowed."));
+                echo response()->json(array("success"=>false, "error"=>"Sorry, only JPG files are allowed."));
+                return false;
             }
 
             // All pass
             if (!move_uploaded_file($files["activity_photo"]["tmp_name"], $target_file)) {
-                return response()->json(array("success"=>false, "error"=>"Sorry, there was an error uploading your file."));
+                echo response()->json(array("success"=>false, "error"=>"Sorry, there was an error uploading your file."));
+                return false;
             }
 
             // create thumbnail
