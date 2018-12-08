@@ -81,7 +81,7 @@
                                             <select class="form-control" name="district_id">
                                                 <option selected disabled>Select a district</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{$district->district_id}}">{{$district->district_zh_hk}}</option>
+                                                    <option value="{{$category->category_id}}">{{$category->category}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
