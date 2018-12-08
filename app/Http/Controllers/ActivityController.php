@@ -92,7 +92,7 @@ class ActivityController extends Controller
                 ->where('district_id', $activity['district_id'])
                 ->first();
             $activity['region'] = $district['district_zh_hk'];
-            unset($activity['region']);
+            unset($activity['district_id']);
             // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
         }
 
