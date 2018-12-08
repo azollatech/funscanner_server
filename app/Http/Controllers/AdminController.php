@@ -11,6 +11,7 @@ use App\Admin_Model as Admin_Model;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
+use Image;
 
 class AdminController extends Controller
 {
