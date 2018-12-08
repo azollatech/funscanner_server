@@ -85,8 +85,8 @@ class ActivityController extends Controller
 
         foreach ($activities as &$activity) {
             $activity['price'] = (string) $activity['price'];
-            $activity['rect_img'] = URL."activity_img/rect_thumb/".$activity['rect_img'];
-            $activity['sq_img'] = URL."activity_img/sq_thumb/".$activity['sq_img'];
+            $activity['rect_img'] = URL."activity_img/rect_thumb/".$activity['activity_photo'];
+            $activity['sq_img'] = URL."activity_img/sq_thumb/".$activity['activity_photo'];
             // $activity['time_elapsed'] = $this->time_elapsed_string($activity['created_at'], $full = false, $lang = 'en');
         }
 
