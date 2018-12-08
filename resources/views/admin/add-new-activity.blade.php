@@ -62,18 +62,18 @@
                             <label>District</label>
                             <select class="form-control" name="district_id">
                                 <option selected disabled>Select a district</option>
-                                @foreach ($districts as $district)
+                                {{-- @foreach ($districts as $district)
                                     <option value="{{$district->district_id}}">{{$district->district_zh_hk}}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Shop Type</label>
                             <select class="form-control" name="shop_type_id">
                                 <option selected disabled>Select a shop type</option>
-                                @foreach ($shop_types as $shop_type)
+                                {{-- @foreach ($shop_types as $shop_type)
                                     <option value="{{$shop_type->shop_type_id}}">{{$shop_type->shop_type_zh_hk}}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                         <div class="form-group">
