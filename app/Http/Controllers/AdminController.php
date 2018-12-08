@@ -37,6 +37,9 @@ class AdminController extends Controller
             return "Category must not be blank.";
         }
 
+        $category_id = $_POST['category_id'];
+        unset($_POST['category_id']);
+
         // form data
         $data = $this->postParamsToData($_POST);
 
@@ -53,7 +56,7 @@ class AdminController extends Controller
         // insert into mapping table
         $activity_id = DB::getPdo()->lastInsertId();
         DB::table('peachy_activity')
-            ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
+            ->insert(array('category_id' => $category_id, 'activity_id' => $activity_id));
 
         return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
     }
