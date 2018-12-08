@@ -21,7 +21,10 @@ class AdminController extends Controller
         return View::make('admin/dashboard')->with(array("user_id" => $user_id, "username" => $username));
     }
     public function addNewActivity() {
-        return View::make('admin/add-new-activity');
+        $districts = DB::table('district')
+            ->orderby('district_id')
+            ->get();
+        return View::make('admin/add-new-activity')->with(array("districts" => $districts));
     }
 
     public function peacherApproval() {
