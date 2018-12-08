@@ -115,7 +115,7 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Pages',
+            'text'        => 'ajwelkf',
             'url'         => 'admin/pages',
             'icon'        => 'file',
             'label'       => 4,
