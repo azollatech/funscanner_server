@@ -15,6 +15,5 @@ class VerifyCsrfToken extends BaseVerifier
         //
     	'forward-call',
     	'incoming',
-    	'login',
     ];
 }
