@@ -26,9 +26,17 @@ class AdminController extends Controller
         $districts = DB::table('district')
             ->orderby('district_id')
             ->get();
-        return View::make('admin/add-new-activity')->with(array("districts" => $districts));
+
+        $categories = DB::table('peachy_activity_category')
+            ->get();
+
+        return View::make('admin/add-new-activity')->with(array("districts" => $districts, "categories" => $categories));
     }
     public function postNewActivity(){
+        if (empty($_POST['category_id'])) {
+            return "Category must not be blank.";
+        }
+
         // form data
         $data = $this->postParamsToData($_POST);
 
@@ -38,8 +46,14 @@ class AdminController extends Controller
         // image file data
         $data2 = $this->storeImageFile($data, $_FILES);
 
+        // insert into activity table
         DB::table('peachy_activity')
             ->insert($data2);
+
+        // insert into mapping table
+        $activity_id = DB::getPdo()->lastInsertId();
+        DB::table('peachy_activity')
+            ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
 
         return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
     }

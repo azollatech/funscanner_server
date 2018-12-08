@@ -76,6 +76,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <select class="form-control" name="district_id">
+                                                <option selected disabled>Select a district</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{$district->district_id}}">{{$district->district_zh_hk}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-md-6" style="vertical-align: top;">
                                         <div class="form-group">
