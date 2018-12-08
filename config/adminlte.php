@@ -120,6 +120,12 @@ return [
             'icon'        => 'plus',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Activity List',
+            'url'         => 'admin/activity-list',
+            'icon'        => 'list',
+            'label_color' => 'success',
+        ],
         'ACCOUNT SETTINGS (COMING SOON)',
         [
             'text' => 'Profile',
