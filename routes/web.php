@@ -34,12 +34,13 @@ Route::get('logged-in', 'HomeController@loggedIn');
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 	Route::get('/', 'AdminController@index');
-	Route::get('users','AdminController@users');
+	Route::get('add-new-activity', 'AdminController@addNewActivity');
+	// Route::get('users','AdminController@users');
 	// Route::get('users/{Users}/{Peachers}/{Admin}', 'AdminController@users');
-	Route::get('peacher-approval', 'AdminController@peacherApproval');
-	Route::get('peacher-approval/post/{user_id}/{peacher_signup_id}', 'AdminController@approvePeacher');
-	Route::get('withdrawal', 'AdminController@withdrawal');
-	Route::get('withdrawal/withdraw/{peacher_id}/{current_balance}', 'AdminController@withdraw');
+	// Route::get('peacher-approval', 'AdminController@peacherApproval');
+	// Route::get('peacher-approval/post/{user_id}/{peacher_signup_id}', 'AdminController@approvePeacher');
+	// Route::get('withdrawal', 'AdminController@withdrawal');
+	// Route::get('withdrawal/withdraw/{peacher_id}/{current_balance}', 'AdminController@withdraw');
 });
 
 // Peacher
