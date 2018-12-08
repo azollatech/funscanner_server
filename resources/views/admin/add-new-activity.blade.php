@@ -36,12 +36,12 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div>
-                                                        Square Thumbnail
+                                                        <div>Square Thumbnail</div>
                                                         <img class="img-upload" id='img-upload' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
                                                     </div>
                                                     {{-- <img class="img-upload" id='img-upload-full' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/> --}}
                                                     <div>
-                                                        Rectangular Thumbnail
+                                                        <div>Rectangular Thumbnail</div>
                                                         <img class="img-upload" id='img-upload-rect' src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="/>
                                                     </div>
                                                 </div>
