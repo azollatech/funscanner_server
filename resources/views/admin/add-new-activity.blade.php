@@ -184,7 +184,7 @@
             border: 1px solid lightgrey;
             background: #f5f5f5;
         }
-        #img-upload{
+        /* #img-upload{
             width: 320px;
             height: 320px;
             object-fit: cover;
@@ -198,7 +198,7 @@
             width: 360px;
             height: 180px;
             object-fit: cover;
-        }
+        } */
     </style>
 @stop
 
