@@ -46,46 +46,37 @@
                                 <div class="row">
                                     <div class="col-md-6" style="vertical-align: top;">
                                         <div class="form-group">
-                                            <label>Shop Name</label>
-                                            <input type="text" class="form-control" name="shop_name">
+                                            <label>Activity Name</label>
+                                            <input type="text" class="form-control" name="activity_name">
                                         </div>
                                         <div class="form-group">
-                                            <label>Shop Name (en)</label>
-                                            <input type="text" class="form-control" name="shop_name_en">
+                                            <label>Price</label>
+                                            <input type="text" class="form-control" name="price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Details</label>
+                                            <input type="text" class="form-control" name="details">
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
                                             <input type="text" class="form-control" name="address">
                                         </div>
                                         <div class="form-group">
-                                            <label>Address (en)</label>
-                                            <input type="text" class="form-control" name="address_en">
-                                        </div>
-                                        <div class="form-group">
                                             <label>District</label>
                                             <select class="form-control" name="district_id">
                                                 <option selected disabled>Select a district</option>
-                                                {{-- @foreach ($districts as $district)
+                                                @foreach ($districts as $district)
                                                     <option value="{{$district->district_id}}">{{$district->district_zh_hk}}</option>
-                                                @endforeach --}}
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Shop Type</label>
-                                            <select class="form-control" name="shop_type_id">
-                                                <option selected disabled>Select a shop type</option>
-                                                {{-- @foreach ($shop_types as $shop_type)
-                                                    <option value="{{$shop_type->shop_type_id}}">{{$shop_type->shop_type_zh_hk}}</option>
-                                                @endforeach --}}
-                                            </select>
+                                            <label>Traffic</label>
+                                            <input type="text" class="form-control" name="traffic">
                                         </div>
                                         <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="form-control" rows="7" name="shop_description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone">
+                                            <label>Must Know</label>
+                                            <input type="text" class="form-control" name="must_know">
                                         </div>
                                     </div>
                                     <div class="col-md-6" style="vertical-align: top;">
@@ -131,20 +122,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Facebook Username</label>
-                                            <input type="text" class="form-control" name="fb_username">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Twitter Username</label>
-                                            <input type="text" class="form-control" name="tw_username">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Instagram Username</label>
-                                            <input type="text" class="form-control" name="ig_username">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Website URL</label>
-                                            <input type="text" class="form-control" name="website_url">
+                                            <label>Duration</label>
+                                            <input type="text" class="form-control" name="duration">
                                         </div>
                                     </div>
                                 </div>
