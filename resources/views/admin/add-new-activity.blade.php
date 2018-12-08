@@ -157,7 +157,49 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        /* Bootstrap upload */
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        .img-upload {
+            margin-top: 8px;
+            vertical-align: top;
+            border: 1px solid lightgrey;
+            background: #f5f5f5;
+        }
+        #img-upload{
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+        }
+        #img-upload-full{
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+        }
+        #img-upload-rect{
+            width: 360px;
+            height: 180px;
+            object-fit: cover;
+        }
+    </style>
 @stop
 
 @section('js')
