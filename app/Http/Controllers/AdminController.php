@@ -46,16 +46,18 @@ class AdminController extends Controller
         // image file data
         $data2 = $this->storeImageFile($data, $_FILES);
 
+        print_r($data2);
+
         // insert into activity table
-        DB::table('peachy_activity')
-            ->insert($data2);
-
-        // insert into mapping table
-        $activity_id = DB::getPdo()->lastInsertId();
-        DB::table('peachy_activity')
-            ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
-
-        return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
+        // DB::table('peachy_activity')
+        //     ->insert($data2);
+        //
+        // // insert into mapping table
+        // $activity_id = DB::getPdo()->lastInsertId();
+        // DB::table('peachy_activity')
+        //     ->insert(array('category_id' => $_POST['category_id'], 'activity_id' => $activity_id));
+        //
+        // return redirect('admin/add-new-activity')->with(array("success" => "Activity added."));
     }
 
     private function postParamsToData($post) {
