@@ -139,8 +139,8 @@ class AdminController extends Controller
             }
 
             // create thumbnail
-            $sqThumbPath = $storage_path.'sq-thumb/'.$filename;
-            $recThumbPath = $storage_path.'rect-thumb/'.$filename;
+            $sqThumbPath = $storage_path.'sq_thumb/'.$filename;
+            $recThumbPath = $storage_path.'rect_thumb/'.$filename;
             $sq = Image::make($target_file)
                 ->fit(640, 640);
             $sq->save($sqThumbPath);
