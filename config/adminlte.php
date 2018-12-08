@@ -115,10 +115,9 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'ajwelkf',
-            'url'         => 'admin/pages',
-            'icon'        => 'file',
-            'label'       => 4,
+            'text'        => 'Add New Activity',
+            'url'         => 'admin/add-new-activity',
+            'icon'        => 'plus',
             'label_color' => 'success',
         ],
         'ACCOUNT SETTINGS',
