@@ -152,6 +152,7 @@ class AdminController extends Controller
         }
         return $data;
     }
+}
 
 //     public function users(){
 //         if (Auth::check()){
